@@ -21,7 +21,6 @@ licenses(["notice"])  # Apache 2.0
 py_library(
     name = "greeter_plugin",
     srcs = ["greeter_plugin.py"],
-    srcs_version = "PY2AND3",
     deps = [
         "@org_pocoo_werkzeug",
         "@org_pythonhosted_six",
@@ -34,14 +33,12 @@ py_library(
 py_binary(
     name = "greeter_demo",
     srcs = ["greeter_demo.py"],
-    srcs_version = "PY2AND3",
     deps = [":greeter_summary"],
 )
 
 py_library(
     name = "greeter_summary",
     srcs = ["greeter_summary.py"],
-    srcs_version = "PY2AND3",
 )
 
 tf_web_library(
@@ -51,7 +48,6 @@ tf_web_library(
         "greeter-card.html",
     ],
     path = "/greeter-dashboard",
-    visibility = ["//visibility:public"],
     deps = [
         "@org_polymer_iron_icon",
         "@org_polymer_paper_icon_button",

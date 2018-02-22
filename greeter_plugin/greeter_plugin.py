@@ -97,7 +97,6 @@ class GreeterPlugin(base_plugin.TBPlugin):
 
     # The plugin is active if any of the runs has a tag relevant
     # to the plugin.
-    tf.logging.warning(bool(self._multiplexer and any(six.itervalues(all_runs))))
     return bool(self._multiplexer and any(six.itervalues(all_runs)))
 
   def _process_string_tensor_event(self, event):
@@ -118,6 +117,7 @@ class GreeterPlugin(base_plugin.TBPlugin):
       A JSON list of greetings associated with the run and tag
       combination.
     """
+    tf.logging.warning(request)
     run = request.args.get('run')
     tag = request.args.get('tag')
 

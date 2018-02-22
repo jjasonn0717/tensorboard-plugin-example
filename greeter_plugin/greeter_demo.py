@@ -24,9 +24,10 @@ import tensorflow as tf
 
 import greeter_summary
 
-# Directory into which to write tensorboard data.
-LOGDIR = '/tmp/greeter_demo'
-
+import argparse
+parser = argparse.ArgumentParser(prog='greeter_demo')
+parser.add_argument('--logdir', default='/tmp/greeter_demo')
+args = parser.parse_args()
 
 def run(logdir, run_name, characters, extra_character):
   """Greet several characters from a given cartoon."""
@@ -63,9 +64,9 @@ def run_all(logdir, unused_verbose=False):
 
 
 def main(unused_argv):
-  print('Saving output to %s.' % LOGDIR)
-  run_all(LOGDIR, unused_verbose=True)
-  print('Done. Output saved to %s.' % LOGDIR)
+  print('Saving output to %s.' % args.logdir)
+  run_all(args.logdir, unused_verbose=True)
+  print('Done. Output saved to %s.' % args.logdir)
 
 
 if __name__ == '__main__':

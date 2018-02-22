@@ -9,7 +9,6 @@ py_binary(
     srcs = ["main.py"],
     data = ["assets.zip"],
     main = "main.py",
-    srcs_version = "PY2AND3",
     deps = [
         "//greeter_plugin",
         "@org_pocoo_werkzeug",

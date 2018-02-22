@@ -71,10 +71,9 @@ limitations under the License.
       },
 
       _computeRunColor(run) {
-        return tf_color_scale._runsColorScale(run);
+        return tf_color_scale.runsColorScale(run);
       },
       attached() {
-        console.log("debug");
         // Defer reloading until after we're attached, because that ensures that
         // the requestManager has been set from above. (Polymer is tricky
         // sometimes)
@@ -86,7 +85,6 @@ limitations under the License.
           return;
         }
         this._canceller.cancelAll();
-        console.log("reloading");
         const router = tf_backend.getRouter();
         const url = tf_backend.addParams(router.pluginRoute("greeter", "/greetings"), {
           tag: this.tag,
@@ -96,6 +94,7 @@ limitations under the License.
           if (result.cancelled) {
             return;
           }
+          console.log(result)
           this._greetings = result.value
         });
         this.requestManager.request(url).then(updateData);
