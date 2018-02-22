@@ -20,12 +20,15 @@ import os
 
 from tensorboard import default
 from tensorboard import program
+import tensorboard
 import tensorflow as tf
 
 from greeter_plugin import greeter_plugin
 
 
 if __name__ == '__main__':
-  plugins = default.get_plugins() + [greeter_plugin.GreeterPlugin]
+  # plugins = [tensorboard.plugins.core.core_plugin.CorePlugin, tensorboard.plugins.text.text_plugin.TextPlugin, greeter_plugin.GreeterPlugin]
+  plugins = [tensorboard.plugins.core.core_plugin.CorePlugin, greeter_plugin.GreeterPlugin]
+  tf.logging.warning(plugins)
   assets = os.path.join(tf.resource_loader.get_data_files_path(), 'assets.zip')
   program.main(plugins, lambda: open(assets, 'rb'))

@@ -56,6 +56,7 @@ class GreeterPlugin(base_plugin.TBPlugin):
     # To be clear, the values of the dictionary are dictionaries.
     all_runs = self._multiplexer.PluginRunToTagToContent(
         GreeterPlugin.plugin_name)
+    tf.logging.warning(request)
 
     # tagToContent is itself a dictionary mapping tag name to string
     # content. We retrieve the keys of that dictionary to obtain a
@@ -96,6 +97,7 @@ class GreeterPlugin(base_plugin.TBPlugin):
 
     # The plugin is active if any of the runs has a tag relevant
     # to the plugin.
+    tf.logging.warning(bool(self._multiplexer and any(six.itervalues(all_runs))))
     return bool(self._multiplexer and any(six.itervalues(all_runs)))
 
   def _process_string_tensor_event(self, event):

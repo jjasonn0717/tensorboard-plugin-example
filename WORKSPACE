@@ -94,9 +94,9 @@ web_test_repositories(
 
 http_archive(
     name = "org_tensorflow_tensorboard",
-    strip_prefix = "tensorboard-master",
+    strip_prefix = "tensorboard-1.6.0",
     urls = [
-        "https://github.com/tensorflow/tensorboard/archive/master.tar.gz",  # 2017-10-05
+        "https://github.com/tensorflow/tensorboard/archive/1.6.0.tar.gz",
     ],
 )
 

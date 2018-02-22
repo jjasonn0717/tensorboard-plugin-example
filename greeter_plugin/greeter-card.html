@@ -27,10 +27,10 @@ limitations under the License.
 -->
 <dom-module id="greeter-card">
   <template>
-    <tf-card-heading title="[[tag]]" color="[[_runColor]]">
+    <tf-card-heading run="[[run]]" tag="[[tag]]" color="[[_runColor]]">
       [[run]]
     </tf-card-heading>
-    <template is="dom-repeat" items="[[greetings]]">
+    <template is="dom-repeat" items="[[_greetings]]">
       <div>[[item.text]]</div>
     </template>
     <style>
@@ -50,40 +50,31 @@ limitations under the License.
     </style>
   </template>
   <script>
-    "use strict";
-
-    import {Canceller} from "../tf-backend/canceller.js";
-    import {getRouter} from "../tf-backend/router.js";
-    import {runsColorScale} from "../tf-color-scale/colorScale.js";
-
     Polymer({
       is: "greeter-card",
       properties: {
         run: String,
         tag: String,
-
-        /** @type {Function} */
-        _colorScaleFunction: {
-          type: Object,  // function: string => string
-          value: () => runsColorScale,
-        },
         _runColor: {
           type: String,
           computed: "_computeRunColor(run)",
+        }, 
+        _greetings: {
+          type: Array,
+          value: [],
         },
         requestManager: Object,
         _canceller: {
           type: Object,
-          value: () => new Canceller(),
+          value: () => new tf_backend.Canceller(),
         },
       },
 
-      observers: ["_fetchNewData(run, tag)"],
-
       _computeRunColor(run) {
-        return this._colorScaleFunction(run);
+        return tf_color_scale._runsColorScale(run);
       },
       attached() {
+        console.log("debug");
         // Defer reloading until after we're attached, because that ensures that
         // the requestManager has been set from above. (Polymer is tricky
         // sometimes)
@@ -91,22 +82,21 @@ limitations under the License.
         this.reload();
       },
       reload() {
-        this._fetchNewData(this.run, this.tag);
-      },
-      _fetchNewData(run, tag) {
         if (!this._attached) {
           return;
         }
         this._canceller.cancelAll();
-        const router = getRouter();
-        const url = router.pluginRunTagRoute("greeter", "/greetings")(
-          tag, run);
+        console.log("reloading");
+        const router = tf_backend.getRouter();
+        const url = tf_backend.addParams(router.pluginRoute("greeter", "/greetings"), {
+          tag: this.tag,
+          run: this.run,
+        });
         const updateData = this._canceller.cancellable(result => {
           if (result.cancelled) {
             return;
           }
-          const backendData = result.value;
-          this.greetings = backendData;
+          this._greetings = result.value
         });
         this.requestManager.request(url).then(updateData);
       },

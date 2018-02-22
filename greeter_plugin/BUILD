@@ -47,10 +47,11 @@ py_library(
 tf_web_library(
     name = "greeter_dashboard",
     srcs = [
-        "greeter-card.html",
         "greeter-dashboard.html",
+        "greeter-card.html",
     ],
-    path = "/greeter-plugin",
+    path = "/greeter-dashboard",
+    visibility = ["//visibility:public"],
     deps = [
         "@org_polymer_iron_icon",
         "@org_polymer_paper_icon_button",

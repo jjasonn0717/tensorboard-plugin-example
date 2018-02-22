@@ -26,7 +26,6 @@ tf_web_library(
         "//greeter_plugin:greeter_dashboard",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:webcomponentsjs",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_tensorboard",
-        "@org_tensorflow_tensorboard//tensorboard/components/tf_tensorboard:default_plugins",
     ],
 )
 
