@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        $.ajax({
+            dataType: "json",
+            type: 'GET',
+            url: "http://140.112.21.18:6008/data/plugin/greeter/tags",
+            async: true,
+            beforeSend: function() {
+                console.log("start...");
+            },
+            success: function(result) {
+            	console.log(result['steven_universe'][0]);
+                console.log("success!!!");
+                //$("#mydiv").html(result['steven_universe'][0]);
+                $("#mydiv")[0].innerHTML = JSON.stringify(result);
+            },
+            error: function(xhr) {
+            	console.log(xhr);
+            }
+        });
+    });
+});
+</script>
+</head>
+<body>
+
+<button>Send an HTTP GET request to a page and get the result back</button>
+<div id="mydiv">aaa</div>
+
+</body>
+</html>
+
